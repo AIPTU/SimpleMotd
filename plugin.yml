@@ -1,0 +1,8 @@
+---
+name: SimpleMotd
+main: aiptu\simplemotd\SimpleMotd
+src-namespace-prefix: aiptu\simplemotd
+version: 1.0.0
+api: [4.0.0]
+author: AIPTU
+...
