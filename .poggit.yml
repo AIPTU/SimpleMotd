@@ -1,0 +1,8 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/AIPTU/SimpleMotd
+branches:
+- master
+projects:
+  SimpleMotd:
+    path: ""
+    icon: "icon.png"
+...
