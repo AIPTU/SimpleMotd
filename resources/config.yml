@@ -1,19 +1,22 @@
 ---
 # Do not change this (Only for internal use)!
-config-version: 1
+config-version: 1.0
 
 # Available tags for motd messages:
 # - {MAX_PLAYERS}: Show the maximum number of players supported by the server.
 # - {ONLINE_PLAYERS}: Show the number of all online players.
 # - {PREFIX}: Show prefix.
 # - {SUFFIX}: Show suffix.
+# - {TIME}: Show current time.
 # Use "§" or "&" to color the message.
 
 # Prefix
 prefix: "&b»"
-
 # Suffix
 suffix: "&b«"
+# Date\Time format (replaced in {TIME}).
+# For format codes read https://php.net/manual/en/datetime.formats.php
+datetime-format: "H:i:s".
 
 motd:
   # Enable the motd.
@@ -22,6 +25,7 @@ motd:
   time: 15
   # Messages used to display motd.
   messages:
-    - "&a{PREFIX} Welcome to my server {SUFFIX}"
-    - "&bCurrent online: &a{ONLINE_PLAYERS}/{MAX_PLAYERS}"
+    - "&a[{TIME}] {PREFIX} Welcome to my server {SUFFIX}"
+    - "&b[{TIME}] Current online: &a{ONLINE_PLAYERS}/{MAX_PLAYERS}"
+    - "&b[{TIME}] {PREFIX} Hello World &a{SUFFIX}"
 ...
