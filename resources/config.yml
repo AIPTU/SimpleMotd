@@ -16,7 +16,7 @@ prefix: "&b»"
 suffix: "&b«"
 # Date\Time format (replaced in {TIME}).
 # For format codes read https://php.net/manual/en/datetime.formats.php
-datetime-format: "H:i:s".
+datetime-format: "H:i:s"
 
 motd:
   # Enable the motd.
