@@ -33,6 +33,7 @@ use pocketmine\scheduler\ClosureTask;
 use pocketmine\utils\TextFormat;
 use function array_rand;
 use function count;
+use function date;
 use function rename;
 use function str_replace;
 
@@ -95,7 +96,7 @@ final class SimpleMotd extends PluginBase
 						'ONLINE_PLAYERS' => count($this->getServer()->getOnlinePlayers()),
 						'PREFIX' => $configProperty->getPropertyString('prefix', ''),
 						'SUFFIX' => $configProperty->getPropertyString('suffix', ''),
-						'TIME' => $configProperty->getPropertyString('datetime-format', 'H:i:s'),
+						'TIME' => date($configProperty->getPropertyString('datetime-format', 'H:i:s')),
 					])));
 				}
 			), $time);
