@@ -41,7 +41,7 @@ final class SimpleMotd extends PluginBase
 {
 	private const CONFIG_VERSION = 1.0;
 
-	private ConfigProperty $configProperty;
+	private TypedConfig $typedConfig;
 
 	public function onEnable(): void
 	{
@@ -58,9 +58,9 @@ final class SimpleMotd extends PluginBase
 		return $str;
 	}
 
-	public function getConfigProperty(): ConfigProperty
+	public function getTypedConfig(): TypedConfig
 	{
-		return $this->configProperty;
+		return $this->typedConfig;
 	}
 
 	private function checkConfig(): void
@@ -68,35 +68,35 @@ final class SimpleMotd extends PluginBase
 		$this->saveDefaultConfig();
 
 		if (!$this->getConfig()->exists('config-version') || ($this->getConfig()->get('config-version', self::CONFIG_VERSION) !== self::CONFIG_VERSION)) {
-			$this->getLogger()->notice('Your configuration file is outdated, updating the config.yml...');
-			$this->getLogger()->notice('The old configuration file can be found at config.old.yml');
-
-			rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config.old.yml');
-
+			$this->getLogger()->warning('An outdated config was provided attempting to generate a new one...');
+			if (!rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config.old.yml')) {
+				$this->getLogger()->critical('An unknown error occurred while attempting to generate the new config');
+				$this->getServer()->getPluginManager()->disablePlugin($this);
+			}
 			$this->reloadConfig();
 		}
 
-		$this->configProperty = new ConfigProperty($this->getConfig());
+		$this->typedConfig = new TypedConfig($this->getConfig());
 	}
 
 	private function loadMotd(): void
 	{
-		$configProperty = $this->getConfigProperty();
+		$typedConfig = $this->getTypedConfig();
 
-		if ($configProperty->getPropertyBool('motd.enabled', true)) {
-			$time = $configProperty->getPropertyInt('motd.time', 15) * 20;
+		if ($typedConfig->getBool('motd.enabled', true)) {
+			$time = $typedConfig->getInt('motd.time', 15) * 20;
 
 			$this->getScheduler()->scheduleRepeatingTask(new ClosureTask(
-				function () use ($configProperty): void {
-					$messages = $configProperty->getPropertyArray('motd.messages', []);
+				function () use ($typedConfig): void {
+					$messages = $typedConfig->getStringList('motd.messages');
 					$message = $messages[array_rand($messages)];
 
 					$this->getServer()->getNetwork()->setName(TextFormat::colorize($this->replaceVars($message, [
 						'MAX_PLAYERS' => $this->getServer()->getMaxPlayers(),
 						'ONLINE_PLAYERS' => count($this->getServer()->getOnlinePlayers()),
-						'PREFIX' => $configProperty->getPropertyString('prefix', ''),
-						'SUFFIX' => $configProperty->getPropertyString('suffix', ''),
-						'TIME' => date($configProperty->getPropertyString('datetime-format', 'H:i:s')),
+						'PREFIX' => $typedConfig->getString('prefix'),
+						'SUFFIX' => $typedConfig->getString('suffix'),
+						'TIME' => date($typedConfig->getString('datetime-format', 'H:i:s')),
 					])));
 				}
 			), $time);
