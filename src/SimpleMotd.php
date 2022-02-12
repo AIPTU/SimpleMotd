@@ -39,7 +39,7 @@ use function str_replace;
 
 final class SimpleMotd extends PluginBase
 {
-	private const CONFIG_VERSION = 1.0;
+	private const CONFIG_VERSION = 1.1;
 
 	private TypedConfig $typedConfig;
 
