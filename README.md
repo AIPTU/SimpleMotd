@@ -19,7 +19,7 @@ A PocketMine-MP plugin to change server motd easily.
 ```yaml
 ---
 # Do not change this (Only for internal use)!
-config-version: 1.0
+config-version: 1.1
 
 # Available tags for motd messages:
 # - {MAX_PLAYERS}: Show the maximum number of players supported by the server.
