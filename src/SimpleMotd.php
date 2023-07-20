@@ -29,7 +29,7 @@ use function is_string;
 use function str_replace;
 
 class SimpleMotd extends PluginBase {
-	private const CONFIG_VERSION = 1.1;
+	private const CONFIG_VERSION = 1.2;
 
 	public function onEnable() : void {
 		$this->checkConfig();

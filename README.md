@@ -21,7 +21,7 @@ A PocketMine-MP plugin to change server motd easily.
 # Default Config
 ```yaml
 # Do not change this (Only for internal use)!
-config-version: 1.1
+config-version: 1.2
 
 # Prefix used in MOTD messages. Use "§" or "&" to color the message.
 prefix: "&b»"
